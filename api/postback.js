@@ -6,12 +6,10 @@ const KEITARO_DOMAIN = process.env.KEITARO_DOMAIN;
 
 export default async function handler(req, res) {
     try {
-
-        const referer = req.headers.referer || '';
-        if (!referer.includes(KEITARO_DOMAIN)) {
-            return res.status(403).json({ status: 'error', message: 'Forbidden: invalid domain' });
-        }
-
+        // const referer = req.headers.referer || '';
+        // if (!referer.includes(KEITARO_DOMAIN)) {
+        //     return res.status(403).json({ status: 'error', message: 'Forbidden: invalid domain' });
+        // }
 
         const query = req.query;
 
