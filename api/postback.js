@@ -2,9 +2,17 @@ import fetch from 'node-fetch';
 
 const BOT_TOKEN = process.env.BOT_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
+const KEITARO_DOMAIN = process.env.KEITARO_DOMAIN;
 
 export default async function handler(req, res) {
     try {
+
+        const referer = req.headers.referer || '';
+        if (!referer.includes(KEITARO_DOMAIN)) {
+            return res.status(403).json({ status: 'error', message: 'Forbidden: invalid domain' });
+        }
+
+
         const query = req.query;
 
         const status = query.status || '';
@@ -15,7 +23,6 @@ export default async function handler(req, res) {
         const creative_id = query.creative_id || '0';
         const revenue = query.revenue || '';
 
-        // SubID
         const sub_ids = [];
         for (let i = 1; i <= 30; i++) {
             const key = i === 1 ? 'subid' : 'sub_id_' + i;
@@ -24,7 +31,6 @@ export default async function handler(req, res) {
             }
         }
 
-        // Сообщение
         let message = `🔔 [Keitaro for TeamLead] Событие - ${status}\n\n`;
         message += `👨‍💻 Кампания: ${campaign_name}\n`;
         message += `💼 Оффер: ${offer_name} (${offer_id})\n`;
