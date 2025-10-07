@@ -11,6 +11,9 @@ export default async function handler(req, res) {
         //     return res.status(403).json({ status: 'error', message: 'Forbidden: invalid domain' });
         // }
 
+        console.log(req.headers.referer || '');
+        
+
         const query = req.query;
 
         const status = query.status || '';
